@@ -1,0 +1,239 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tutor Registration</title>
+    <style>
+        /* Google Font Import */
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background-color: #f9f9fb;
+        }
+
+        .container {
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            width: 90%;
+            padding: 25px 30px;
+            margin: 10px;
+        }
+
+        .container header {
+            font-size: 24px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        form .row {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px; /* Space between fields */
+            margin-bottom: 15px; /* Spacing between rows */
+        }
+
+        form .row .input-field {
+            flex: 1; /* Allow fields to take equal width */
+        }
+
+        form .input-field label {
+            font-size: 14px;
+            margin-bottom: 5px;
+            color: #333;
+            display: block;
+        }
+
+        form .input-field input,
+        form .input-field select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+            color: #555;
+        }
+
+        form .input-field input:focus,
+        form .input-field select:focus {
+            border-color: #00B074;
+            outline: none;
+        }
+
+        button {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background: #00B074;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background: #008f5b;
+        }
+
+        /* Mobile responsiveness */
+        @media screen and (max-width: 600px) {
+            form .row {
+                flex-direction: column; /* Stack form fields on smaller screens */
+            }
+            form .row .input-field {
+                margin-bottom: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>Tutor Registration</header>
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <!-- Row 1 -->
+            <div class="row">
+                <div class="input-field">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name" placeholder="Enter full name" required>
+                </div>
+                <div class="input-field">
+                    <label for="image">Profile Image:</label>
+                    <input type="file" id="image" name="image">
+                </div>
+            </div>
+            
+            <div class="input-field">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" placeholder="Enter your email" required>
+            </div>
+
+            <!-- Row 2 -->
+            <div class="row">
+                <div class="input-field">
+                    <label for="gender">Gender:</label>
+                    <select id="gender" name="gender" required>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                <div class="input-field">
+                    <label for="mobile_number">Mobile Number:</label>
+                    <input type="text" id="mobile_number" name="mobile_number" placeholder="Enter your mobile number" required>
+                </div>
+            </div>
+
+            <!-- Row 3 -->
+            <div class="row">
+                <div class="input-field">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                </div>
+                <div class="input-field">
+                    <label for="confirm_password">Confirm Password:</label>
+                    <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirm your password" required>
+                </div>
+            </div>
+
+            <!-- Row 4 -->
+            <div class="row">
+                <div class="input-field">
+                    <label for="department_select">Department:</label>
+                    <select name="department" id="department_select" required>
+                        <option value="" disabled selected>Select Department</option>
+                        <option value="English">English</option>
+                        <option value="Malayalam">Malayalam</option>
+                        <option value="Mathematics">Mathematics</option>
+                        <option value="Statistics">Statistics</option>
+                        <option value="Computer Science">Computer Science</option>
+                        <option value="Physics">Physics</option>
+                        <option value="Chemistry">Chemistry</option>
+                        <option value="Botany">Botany</option>
+                        <option value="Zoology">Zoology</option>
+                        <option value="Home Science">Home Science</option>
+                        <option value="Economics">Economics</option>
+                        <option value="Psychology">Psychology</option>
+                        <option value="Sociology">Sociology</option>
+                        <option value="Commerce">Commerce</option>
+                        <option value="Social Work">Social Work</option>
+                    </select>
+                </div>
+
+                <div class="input-field">
+                    <label for="course">Course:</label>
+                    <select name="course" id="course" required>
+                        <option value="" disabled selected class="option">Select Courses</option> 
+                        <option value="None"class="option">None</option> 
+                        <option value="English"class="option">BA English Language & Literature</option> 
+                        <option value="Functional "class="option">BA Functional English</option> 
+                        <option value="BA Malayalam"class="option">BA Malayalam Language & Literature</option> 
+                        <option value="mech"class="option">Bsc Mathematics</option> 
+                        <option value="English"class="option">Bsc Statistics</option> 
+                        <option value="Functional "class="option">Bsc computer science</option> 
+                        <option value="BA Malayalam"class="option">Bsc Physics</option> 
+                        <option value="mech"class="option">Bsc Chemistry</option> 
+                        <option value="English"class="option">Bsc Botany</option> 
+                        <option value="Functional "class="option">Bsc Zoology</option> 
+                        <option value="BA Malayalam"class="option">Bsc Homie science-Family & community Science</option> 
+                        <option value="mech"class="option">Bsc Home Science-Textile & Fashion Technology(self Financing)</option> 
+                        <option value="English"class="option">BA Economics</option> 
+                        <option value="Functional "class="option">Bsc Psychology(Self Financing)</option> 
+                        <option value="BA Malayalam"class="option">BA Sociology</option> 
+                        <option value="mech"class="option">Bcom Finance(Self Financing)</option> 
+                        <option value="English"class="option">Bcom Finance(Aided)</option> 
+                        <option value="Functional "class="option">Bvoc Web Technology</option> 
+                        <option value="BA Malayalam"class="option">Bvoc Food Processing</option> 
+                        <option value="mech"class="option">MA English Language & Literature</option> 
+                        <option value="English"class="option">MA Malayalam Language & Literature</option> 
+                        <option value="Functional "class="option">Msc Mathematics(Self Financing)</option> 
+                        <option value="BA Malayalam"class="option">Msc Statistics(Self Financing)</option> 
+                        <option value="mech"class="option">Msc computer science(Specialisation-data-science)(Self Financing)</option> 
+                        <option value="English"class="option">Msc Physics</option> 
+                        <option value="Functional "class="option">Msc Chemistry(Self Financing)</option> 
+                        <option value="BA Malayalam"class="option">Msc Botany(Self Financing)</option> 
+                        <option value="mech"class="option">Msc Zoology(Specialisation-Fishery-science)(Self Financing)</option> 
+                        <option value="English"class="option">Msc Zoology(Specialisation structure,Physiology,Development and classification of Animals)(Aided)</option> 
+                        <option value="Functional "class="option">Msc Home science Nutrition & Dietetics(Self Financing)</option> 
+                        <option value="BA Malayalam"class="option">Msc Homie science-Textile & costume Science science(Self Financing)</option> 
+                        <option value="English"class="option">MA Economics</option> 
+                        <option value="Functional "class="option">MA Sociology(Self Financing)</option> 
+                      </select> 
+                </div>
+            </div>
+
+            <!-- Row 5 -->
+            <div class="row">
+                <div class="input-field">
+                    <label for="batch">Batch (e.g., 2022-2024):</label>
+                    <input type="text" id="batch" name="batch" placeholder="Enter your batch (YYYY-YYYY)" required>
+                </div>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit">Register</button>
+        </form>
+    </div>
+</body>
+</html>

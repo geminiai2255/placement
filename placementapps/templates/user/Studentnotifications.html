@@ -1,0 +1,117 @@
+{% extends "user/user_index.html" %}
+
+{% block content %}
+<head>
+    <style>
+        /* General Styles */
+        body {
+            background-color: #f7f9fc;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            max-width: 800px;
+            background: #fff;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+
+        h1 {
+            font-size: 26px;
+            font-weight: 600;
+            color: #4c4c4c;
+            text-align: center;
+        }
+
+        /* Notification List */
+        .list-group-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            background-color: #fff;
+            border: 1px solid #e0e0e0;
+            transition: background-color 0.3s ease;
+        }
+
+        .list-group-item:hover {
+            background-color: #f1f1f1;
+        }
+
+        /* Unread Notifications */
+        .unread-notification {
+            background-color: #e9f7e9;
+            border-left: 4px solid #28a745;
+            font-weight: 500;
+        }
+
+        /* Notification Icons */
+        .notification-icon {
+            font-size: 22px;
+            margin-right: 15px;
+            color: #007bff;
+        }
+
+        /* Timestamp Styling */
+        .timestamp {
+            font-size: 14px;
+            color: #6c757d;
+        }
+
+        /* Action Button Styles */
+        .action-btn {
+            background-color: #007bff;
+            color: #fff;
+            border-radius: 50%;
+            padding: 8px 12px;
+            font-size: 14px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .action-btn:hover {
+            background-color: #0056b3;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>All Notifications</h1>
+
+        {% if notifications %}
+            <ul class="list-group">
+                {% for notification in notifications %}
+                    <li class="list-group-item {% if not notification.seen %}unread-notification{% endif %}">
+                        <div class="d-flex align-items-center">
+                            <!-- Notification Icon (using Font Awesome) -->
+                            <i class="fas fa-bell notification-icon"></i>
+                            <span>{{ notification.message }}</span>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <small class="timestamp">{{ notification.created_at|date:"M d, Y H:i" }}</small>
+                            <button class="action-btn" onclick="markAsRead({{ notification.id }})">Mark as Read</button>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p class="text-muted text-center">No notifications available.</p>
+        {% endif %}
+    </div>
+
+    <script>
+        // Example for marking notifications as read
+        function markAsRead(notificationId) {
+            alert("Marking notification " + notificationId + " as read");
+            // Here you can make an AJAX request to update the notification status
+        }
+    </script>
+</body>
+{% endblock %}
