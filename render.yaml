@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: placement
+    env: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn placement.wsgi:application
+    envVars:
+      - key: SECRET_KEY
+        value: your_very_secret_key_here
