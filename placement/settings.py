@@ -1,6 +1,7 @@
 from pathlib import Path
 import os
 import dj_database_url  # Add this import
+from whitenoise import WhiteNoise  # Add WhiteNoise import for static file handling
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -11,7 +12,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-p*&ro5dz-j6s2i%ea+6bl
 DEBUG = False
 
 # ALLOWED_HOSTS - Use your Render URL here
-ALLOWED_HOSTS = ['your-render-url.onrender.com']
+ALLOWED_HOSTS = ['your-render-url.onrender.com']  # Replace with your actual Render URL
 
 # Application definition
 INSTALLED_APPS = [
@@ -21,11 +22,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'placementapps',
+    'whitenoise',  # Add WhiteNoise here for static files
+    'placementapps',  # Your app
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',  # Add WhiteNoise middleware for serving static files
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -83,11 +86,15 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 STATIC_URL = '/static/'
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Ensure static files are collected correctly
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # Static files will be collected here
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # Media files will be stored here
+
+# WhiteNoise settings for static file compression and caching
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
